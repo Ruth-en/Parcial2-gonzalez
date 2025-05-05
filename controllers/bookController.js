@@ -88,10 +88,7 @@ const deleteBook = async (req, res) => {
             return res.status(404).json({ message: 'Libro no encontrado' });
         }
         // No se puede eliminar un libro si está asignado a un autor.
-        const book = authors.map((autor) => autor.libros.includes(deleteBook))
-        if (book) {
-            return res.status(400).json({ message: 'Libro tiene asignado un autor' });
-        }
+        //const book = authors.map((autor) => autor.libros.includes(deleteBook)) esto está mal 🙃
 
         res.status(200).json({ message: 'Libro eliminado correstamente' })
     } catch (error) {
