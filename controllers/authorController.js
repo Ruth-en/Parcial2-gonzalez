@@ -5,7 +5,7 @@ const Book = require("../models/Book")
 //GET /authors: Obtener todos los libros.
 const getAuthors = async (req,res) => {
     try {
-        const authors = await Author.find();
+        const authors = await Author.find().populate('libros');
 
         res.status(200).json(authors)
     } catch (error) {
