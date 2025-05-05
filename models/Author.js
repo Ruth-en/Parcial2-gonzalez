@@ -13,7 +13,7 @@ const authorSchema = new mongoose.Schema({
         required: true
     },
     nacionalidad:{
-        type: Date,
+        type: String,
         required: true
     },
     libros:[{

@@ -39,6 +39,11 @@ const createAuthor = async (req,res) => {
             nacionalidad:req.body.nacionalidad
         })
 
+        // No se pueden crear autores sin nombre.
+        if(newAuthor.nombre === ''){
+            return res.status(400).json({message:'No se pueden crear autores sin nombre.'})
+        }
+
         const saveAuthor = await newAuthor.save();
 
         if(!saveAuthor){
@@ -97,6 +102,7 @@ const addBook = async (req,res) => {
         const author = await Author.findById(id);
         const book = await Book.findById(bookId);
 
+        //No se puede agregar un libro inexistente a un autor.
         if(!author || !book){
             return res.status(404).json({message:'Autor o libro no encontrado'})
         }
@@ -104,6 +110,8 @@ const addBook = async (req,res) => {
         //verifico que no este incluido
         if(!author.libros.includes(bookId)){
             author.libros.push(book);
+        } else{
+            return res.status(400).json({message:'El libro ya esta registrado'})
         }
 
         await author.save();
